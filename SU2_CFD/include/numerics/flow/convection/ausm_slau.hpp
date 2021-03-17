@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file ausm_slau.hpp
  * \brief Declaration of numerics classes for the AUSM family of schemes,
  *        including SLAU. The implementation is in ausm.cpp.

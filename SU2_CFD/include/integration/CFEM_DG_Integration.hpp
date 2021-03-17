@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CFEM_DG_Integration.hpp
  * \brief Declaration of class for integration with the FEM DG solver.
  * \author E. van der Weide, T. Economon

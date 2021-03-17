@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file flow_diffusion.hpp
  * \brief Delarations of numerics classes for viscous flux computation.
  * \author F. Palacios, T. Economon

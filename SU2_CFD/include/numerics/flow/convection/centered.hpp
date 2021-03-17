@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file centered.hpp
  * \brief Delaration of numerics classes for centered schemes,
  *        the implementation is in centered.cpp.

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CStructuralIntegration.hpp
  * \brief Declaration of class for numerical integration of structural problems.
  * \author R. Sanchez.

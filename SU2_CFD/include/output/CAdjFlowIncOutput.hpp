@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CAdjFlowIncOutput.hpp
  * \brief Headers of the adjoint incompressible flow output.
  * \author T. Albring

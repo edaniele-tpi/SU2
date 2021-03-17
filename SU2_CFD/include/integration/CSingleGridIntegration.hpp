@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CSingleGridIntegration.hpp
  * \brief Declaration of class for numerical integration of fine grid-only problems.
  * \author A. Bueno.

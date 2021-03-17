@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file adj_diffusion.hpp
  * \brief Delarations of numerics classes for continuous adjoint
  *        diffusion discretization. Implemented in adj_diffusion.cpp.

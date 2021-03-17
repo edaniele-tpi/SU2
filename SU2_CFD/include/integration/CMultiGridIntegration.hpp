@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CMultiGridIntegration.hpp
  * \brief Declaration of class for time integration using a multigrid method.
  * \author F. Palacios, T. Economon

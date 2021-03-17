@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CSlidingMesh.hpp
  * \brief Sliding mesh interpolation.
  * \author H. Kline

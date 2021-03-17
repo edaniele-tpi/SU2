@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CAdjFlowCompOutput.hpp
  * \brief Headers of the adjoint compressible flow output.
  * \author T. Albring

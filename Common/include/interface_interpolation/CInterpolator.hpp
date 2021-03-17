@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CInterpolator.hpp
  * \brief Base class for multiphysics interpolation.
  * \author H. Kline

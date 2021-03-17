@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CInterpolatorFactory.hpp
  * \brief Factory to generate interpolator objects.
  * \version 7.1.1 "Blackbird"

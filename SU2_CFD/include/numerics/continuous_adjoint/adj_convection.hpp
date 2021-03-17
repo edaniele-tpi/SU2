@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file adj_convection.hpp
  * \brief Delarations of numerics classes for continuous adjoint
  *        convective discretization. Implemented in adj_convection.cpp.

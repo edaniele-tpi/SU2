@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CNEMOCompOutput.cpp
  * \brief Main subroutines for compressible flow output
  * \author W. Maier, R. Sanchez

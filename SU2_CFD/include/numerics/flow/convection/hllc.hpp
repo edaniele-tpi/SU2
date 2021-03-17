@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file hllc.hpp
  * \brief Declaration of HLLC numerics classes, implemented in hllc.cpp.
  * \author F. Palacios, T. Economon

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file util.hpp
  * \brief Generic auxiliary functions.
  * \author P. Gomes

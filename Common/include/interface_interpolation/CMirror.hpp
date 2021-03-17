@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CMirror.hpp
  * \brief Mirror interpolation for the conservative (work-wise) approach in FSI problems.
  * \author P. Gomes

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file roe.hpp
  * \brief Roe-family of convective schemes.
  * \author P. Gomes, A. Bueno, F. Palacios

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file common.hpp
  * \brief Common convection-related methods.
  * \author P. Gomes, F. Palacios, T. Economon

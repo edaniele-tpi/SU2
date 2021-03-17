@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file flow_sources.cpp
  * \brief Implementation of numerics classes for integration
  *        of source terms in fluid flow problems.

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file heat.hpp
  * \brief Delarations of numerics classes for heat transfer problems.
  * \author F. Palacios, T. Economon

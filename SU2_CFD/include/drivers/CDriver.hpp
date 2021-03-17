@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file driver_structure.hpp
  * \brief Headers of the main subroutines for driving single or multi-zone problems.
  *        The subroutines and functions are in the <i>driver_structure.cpp</i> file.

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CNEMOCompOutput.hpp
  * \brief  Headers of the compressible flow output.
  * \author R. Sanchez, W. Maier.

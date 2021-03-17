@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CDiscAdjFEABoundVariable.hpp
  * \brief Main class for defining the variables of the adjoint FEA solver at the boundary.
  * \author Ruben Sanchez

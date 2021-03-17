@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file template.hpp
  * \brief Declarations of template (empty) numerics classes, these give
  *        an idea of the methods that need to be defined to implement

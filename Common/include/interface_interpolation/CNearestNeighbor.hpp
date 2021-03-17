@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CNearestNeighbor.hpp
  * \brief Nearest Neighbor interpolation class.
  * \author H. Kline

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CIntegration.hpp
  * \brief Declaration of the main routines to orchestrate space and time integration.
  * \author F. Palacios, T. Economon

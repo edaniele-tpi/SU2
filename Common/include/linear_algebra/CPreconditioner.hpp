@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CPreconditioner.hpp
  * \brief Classes related to linear preconditioner wrappers.
  *        The actual operations are currently implemented mostly by CSysMatrix.

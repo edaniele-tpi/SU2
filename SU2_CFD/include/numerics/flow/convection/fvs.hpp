@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file fvs.hpp
  * \brief Delarations of classes for Flux-Vector-Spliting schemes,
  *        the implementations are in fvs.cpp.

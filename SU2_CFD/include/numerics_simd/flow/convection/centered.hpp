@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file centered.hpp
  * \brief Centered convective schemes.
  * \author P. Gomes, F. Palacios, T. Economon

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CElementProperty.hpp
  * \brief Light classes to define finite element properties.
  * \author R. Sanchez

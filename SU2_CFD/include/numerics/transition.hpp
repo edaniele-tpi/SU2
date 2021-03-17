@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file transition.hpp
  * \brief Delarations of numerics classes for transition problems.
  * \author F. Palacios, T. Economon

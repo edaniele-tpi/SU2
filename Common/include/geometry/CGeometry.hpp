@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CGeometry.hpp
  * \brief Headers of the main subroutines for creating the geometrical structure.
  *        The subroutines and functions are in the <i>CGeometry.cpp</i> file.

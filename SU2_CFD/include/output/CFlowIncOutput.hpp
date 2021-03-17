@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CFlowIncCompOutput.hpp
  * \brief  Headers of the incompressible flow output.
  * \author T. Albring, R. Sanchez

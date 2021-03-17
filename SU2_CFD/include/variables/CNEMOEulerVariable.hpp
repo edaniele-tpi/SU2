@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CNEMOEulerVariable.hpp
  * \brief Class for defining the variables of the compressible NEMO Euler solver.
  * \author C. Garbacz, W. Maier, S.R. Copeland

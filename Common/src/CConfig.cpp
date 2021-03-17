@@ -910,6 +910,9 @@ void CConfig::SetPointersNull(void) {
   Surface_IDC_Mach        = nullptr;    Surface_IDR            = nullptr;    ActDisk_Mach             = nullptr;
   ActDisk_Force           = nullptr;    ActDisk_BCThrust       = nullptr;    ActDisk_BCThrust_Old     = nullptr;
 
+  /*--- SST turbulent model ---*/
+  SST_ModelParam      = nullptr;
+
   /*--- Miscellaneous/unsorted ---*/
 
   Aeroelastic_plunge  = nullptr;
@@ -1077,6 +1080,18 @@ void CConfig::SetConfig_Options() {
   addMathProblemOption("MATH_PROBLEM", ContinuousAdjoint, false, DiscreteAdjoint, discAdjDefault, Restart_Flow, discAdjDefault);
   /*!\brief KIND_TURB_MODEL \n DESCRIPTION: Specify turbulence model \n Options: see \link Turb_Model_Map \endlink \n DEFAULT: NO_TURB_MODEL \ingroup Config*/
   addEnumOption("KIND_TURB_MODEL", Kind_Turb_Model, Turb_Model_Map, NO_TURB_MODEL);
+  /* !\brief SST_MODEL_PARAM
+   * DESCRIPTION: Parameters of the SST turbulence model (sigma_k1, sigma_k2, sigma_om1, sigma_om2, beta_1, beta_2, betaStar, a1 )
+   * Used to test alternative model tuning. \ingroup Config*/
+  default_sst_model_params[0] = 0.85; //sigma_k1
+  default_sst_model_params[1] = 1.0; //sigma_k2
+  default_sst_model_params[2] = 0.5; //sigma_om1
+  default_sst_model_params[3] = 0.856; //sigma_om2
+  default_sst_model_params[4] = 0.075; //beta_1
+  default_sst_model_params[5] = 0.0828; //beta_2
+  default_sst_model_params[6] = 0.09; //betaStar
+  default_sst_model_params[7] = 0.31; //a1
+  addDoubleListOption("SST_MODEL_PARAM", nSST_ModelParam, SST_ModelParam);
   /*!\brief KIND_TRANS_MODEL \n DESCRIPTION: Specify transition model OPTIONS: see \link Trans_Model_Map \endlink \n DEFAULT: NO_TRANS_MODEL \ingroup Config*/
   addEnumOption("KIND_TRANS_MODEL", Kind_Trans_Model, Trans_Model_Map, NO_TRANS_MODEL);
 
@@ -3146,7 +3161,7 @@ void CConfig::SetnZone(){
 
 void CConfig::SetPostprocessing(unsigned short val_software, unsigned short val_izone, unsigned short val_nDim) {
 
-  unsigned short iCFL, iMarker;
+  unsigned short iCFL, iMarker, iSST;
   bool ideal_gas = ((Kind_FluidModel == STANDARD_AIR) ||
                     (Kind_FluidModel == IDEAL_GAS) ||
                     (Kind_FluidModel == INC_IDEAL_GAS) ||
@@ -4128,6 +4143,19 @@ void CConfig::SetPostprocessing(unsigned short val_software, unsigned short val_
     swap(newParam, CFL_AdaptParam);
     delete [] newParam;
     nCFL_AdaptParam = default_cfl_adapt.size();
+  }
+
+  /*--- Handle optional SST turbulence model parameter values ---*/
+
+  if (nSST_ModelParam < default_sst_model_params.size()) {
+    auto newParam = new su2double [default_sst_model_params.size()];
+    for (iSST = 0; iSST < default_sst_model_params.size(); ++iSST) {
+      if (iSST < nSST_ModelParam) newParam[iSST] = SST_ModelParam[iSST];
+      else newParam[iSST] = default_sst_model_params[iSST];
+    }
+    swap(newParam, SST_ModelParam);
+    delete [] newParam;
+    nSST_ModelParam = default_sst_model_params.size();
   }
 
   /*--- Evaluate when the Cl should be evaluated ---*/
@@ -7669,9 +7697,10 @@ CConfig::~CConfig(void) {
   delete[] Periodic_Translate;
 
   delete[] MG_CorrecSmooth;
-         delete[] PlaneTag;
-              delete[] CFL;
-   delete[] CFL_AdaptParam;
+  delete[] PlaneTag;
+  delete[] CFL;
+  delete[] CFL_AdaptParam;
+  delete[] SST_ModelParam;
 
   /*--- String markers ---*/
 

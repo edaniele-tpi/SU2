@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CNumerics.hpp
  * \brief Delaration of the base numerics class, the
  *        implementation is in the CNumerics.cpp file.

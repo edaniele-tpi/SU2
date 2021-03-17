@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CNumericsSIMD.hpp
  * \brief Vectorized (SIMD) numerics classes.
  * \note This should be the only cpp for this family of classes

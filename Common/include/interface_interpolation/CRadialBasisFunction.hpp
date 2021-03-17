@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CRadialBasisFunction.hpp
  * \brief Radial basis function interpolation.
  * \author Joel Ho, P. Gomes

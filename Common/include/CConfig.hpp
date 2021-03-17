@@ -554,6 +554,8 @@ private:
   Kind_DV_FEA;              /*!< \brief Kind of Design Variable for FEA problems.*/
 
   unsigned short Kind_Turb_Model;   /*!< \brief Turbulent model definition. */
+  unsigned short nSST_ModelParam;     /*!< \brief Number of SST turbulent model parameters provided in config. */
+  array<su2double,8> default_sst_model_params;  /*!< \brief Default parameters of the SST turbulence model for the COption class. */
   unsigned short Kind_SGS_Model;    /*!< \brief LES SGS model definition. */
   unsigned short Kind_Trans_Model,  /*!< \brief Transition model definition. */
   Kind_ActDisk, Kind_Engine_Inflow,
@@ -730,6 +732,7 @@ private:
   *RefOriginMoment_Y,    /*!< \brief Y Origin for moment computation. */
   *RefOriginMoment_Z,    /*!< \brief Z Origin for moment computation. */
   *CFL_AdaptParam,       /*!< \brief Information about the CFL ramp. */
+  *SST_ModelParam,       /*!< \brief Information about the SST turbulent model parameters. */
   *RelaxFactor_Giles,    /*!< \brief Information about the under relaxation factor for Giles BC. */
   *CFL,                  /*!< \brief CFL number. */
   DomainVolume;          /*!< \brief Volume of the computational grid. */
@@ -4157,6 +4160,23 @@ public:
    * \return Kind of the turbulence model.
    */
   unsigned short GetKind_Turb_Model(void) const { return Kind_Turb_Model; }
+
+  /*!
+   * \brief Get the value(s) of the SST Turbulence Model parameters.
+   * \param[in] val_index - Index corresponding to SST Turbulence Model parameter.
+   * \return Value of SST Turbulence Model parameter.
+   */
+  su2double GetSST_ModelParam(unsigned short val_index) const { 
+    return SST_ModelParam[val_index]; 
+  }
+  /*!
+   * \brief Get the default value(s) of the SST Turbulence Model parameters.
+   * \param[in] val_index - Index corresponding to SST Turbulence Model parameter.
+   * \return Default value of SST Turbulence Model parameter.
+   */
+  su2double GetSST_DefaultModelParam(unsigned short val_index) const { 
+    return default_sst_model_params[val_index]; 
+  }
 
   /*!
    * \brief Get the kind of the transition model.

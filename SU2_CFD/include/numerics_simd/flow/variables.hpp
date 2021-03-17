@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file variables.hpp
  * \brief Collection of types to store physical variables.
  * \author P. Gomes

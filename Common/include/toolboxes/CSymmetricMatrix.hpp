@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CSymmetricMatrix.hpp
  * \brief Dense symmetric matrix, used for example in RBF interpolation.
  * \author Joel Ho, P. Gomes

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file sgs_model.hpp
  * \brief Headers of the LES subgrid scale models of the SU2 solvers.
  * \author E. van der Weide, T. Economon, P. Urbanczyk

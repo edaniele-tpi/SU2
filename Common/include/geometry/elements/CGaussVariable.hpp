@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CGaussVariable.hpp
  * \brief Light-weight class to store Gaussian point information.
  * \author R. Sanchez

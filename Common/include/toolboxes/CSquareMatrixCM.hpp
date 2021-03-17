@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CSquareMatrixCM.hpp
  * \brief Dense general square matrix, used for example in DG standard elements
  *        in Column Major order storage.

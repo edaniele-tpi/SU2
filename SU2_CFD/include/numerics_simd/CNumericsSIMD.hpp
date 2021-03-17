@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CNumericsSIMD.hpp
  * \brief Vectorized (SIMD) numerics classes.
  * \author P. Gomes

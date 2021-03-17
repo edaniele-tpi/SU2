@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file common.hpp
  * \brief Helper functions for viscous methods.
  * \author P. Gomes, C. Pederson, A. Bueno, F. Palacios, T. Economon

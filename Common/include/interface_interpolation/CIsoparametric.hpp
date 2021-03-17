@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CIsoparametric.hpp
  * \brief Isoparametric interpolation using FE shape functions.
  * \author P. Gomes

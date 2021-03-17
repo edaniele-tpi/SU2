@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file cusp.hpp
  * \brief Declaration of the CUSP numerics class.
  * \author F. Palacios, T. Economon

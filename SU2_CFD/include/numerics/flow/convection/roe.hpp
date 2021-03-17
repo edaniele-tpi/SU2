@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file roe.hpp
  * \brief Delarations of numerics classes for Roe-type schemes,
  *        implemented in roe.cpp.

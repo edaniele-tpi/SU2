@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CMatrixVectorProduct.hpp
  * \brief Headers for the classes related to sparse matrix-vector product wrappers.
  *        The actual operations are currently implemented mostly by CSysMatrix.

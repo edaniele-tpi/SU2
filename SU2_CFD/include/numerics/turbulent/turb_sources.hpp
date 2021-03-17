@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file turb_sources.hpp
  * \brief Delarations of numerics classes for integration of source
  *        terms in turbulence problems.

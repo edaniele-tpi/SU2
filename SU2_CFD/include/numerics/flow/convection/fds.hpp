@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file fds.hpp
  * \brief Declarations of classes for Flux-Difference-Spliting schemes,
  *        the implementations are in fds.cpp

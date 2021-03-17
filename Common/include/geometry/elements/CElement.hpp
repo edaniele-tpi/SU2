@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file CElement.hpp
  * \brief Main header of the Finite Element structure declaring the abstract
  *        interface and the available finite element types.
