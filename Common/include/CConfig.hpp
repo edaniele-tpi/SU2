@@ -556,6 +556,8 @@ private:
   unsigned short Kind_Turb_Model;   /*!< \brief Turbulent model definition. */
   unsigned short nSST_ModelParam;     /*!< \brief Number of SST turbulent model parameters provided in config. */
   array<su2double,8> default_sst_model_params;  /*!< \brief Default parameters of the SST turbulence model for the COption class. */
+  unsigned short nSA_ModelParam;     /*!< \brief Number of SA turbulent model parameters provided in config. */
+  array<su2double,9> default_sa_model_params;  /*!< \brief Default parameters of the SA turbulence model for the COption class. */
   unsigned short Kind_SGS_Model;    /*!< \brief LES SGS model definition. */
   unsigned short Kind_Trans_Model,  /*!< \brief Transition model definition. */
   Kind_ActDisk, Kind_Engine_Inflow,
@@ -733,6 +735,7 @@ private:
   *RefOriginMoment_Z,    /*!< \brief Z Origin for moment computation. */
   *CFL_AdaptParam,       /*!< \brief Information about the CFL ramp. */
   *SST_ModelParam,       /*!< \brief Information about the SST turbulent model parameters. */
+  *SA_ModelParam,       /*!< \brief Information about the SA turbulent model parameters. */
   *RelaxFactor_Giles,    /*!< \brief Information about the under relaxation factor for Giles BC. */
   *CFL,                  /*!< \brief CFL number. */
   DomainVolume;          /*!< \brief Volume of the computational grid. */
@@ -4176,6 +4179,23 @@ public:
    */
   su2double GetSST_DefaultModelParam(unsigned short val_index) const { 
     return default_sst_model_params[val_index]; 
+  }
+
+  /*!
+   * \brief Get the value(s) of the SA Turbulence Model parameters.
+   * \param[in] val_index - Index corresponding to SA Turbulence Model parameter.
+   * \return Value of SA Turbulence Model parameter.
+   */
+  su2double GetSA_ModelParam(unsigned short val_index) const { 
+    return SA_ModelParam[val_index]; 
+  }
+  /*!
+   * \brief Get the default value(s) of the SA Turbulence Model parameters.
+   * \param[in] val_index - Index corresponding to SA Turbulence Model parameter.
+   * \return Default value of SA Turbulence Model parameter.
+   */
+  su2double GetSA_DefaultModelParam(unsigned short val_index) const { 
+    return default_sa_model_params[val_index]; 
   }
 
   /*!

@@ -56,8 +56,9 @@ public:
    * \param[in] constants -
    * \param[in] config - Definition of the particular problem.
    */
-  CTurbSSTVariable(su2double kine, su2double omega, su2double mut, unsigned long npoint,
-                   unsigned long ndim, unsigned long nvar, const su2double* constants, CConfig *config);
+  CTurbSSTVariable(su2double kine, su2double omega, su2double mut, 
+    unsigned long npoint, unsigned long ndim, unsigned long nvar, 
+    const su2double* constants, CConfig *config);
 
   /*!
    * \brief Destructor of the class.

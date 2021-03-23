@@ -103,14 +103,21 @@ void CSourceConservative_AdjFlow::ComputeResidual (su2double *val_residual, CCon
   unsigned short iDim, jDim, iVar;
   su2double rho, nu, Ji, fv1, fv2, Omega, Shat, dist_sq, Ji_2, Ji_3, one_o_oneplusJifv1;
   su2double r, g, g_6, glim, dfw_g, dg_r, dr_nuhat, dr_Shat, Ms_coeff, invOmega;
-
-  su2double cv1_3 = 7.1*7.1*7.1;
-  su2double k2 = 0.41*0.41;
-  su2double cb1 = 0.1355;
-  su2double cw2 = 0.3;
-  su2double cw3_6 = pow(2.0,6.0);
-  su2double sigma = 2./3.;
-  su2double cb2 = 0.622;
+  /*--- Define again model parameters ---*/
+  // su2double cv1_3 = 7.1*7.1*7.1;
+  // su2double k2 = 0.41*0.41;
+  // su2double cb1 = 0.1355;
+  // su2double cw2 = 0.3;
+  // su2double cw3_6 = pow(2.0,6.0);
+  // su2double sigma = 2./3.;
+  // su2double cb2 = 0.622;
+  su2double cv1_3 = pow(config->GetSA_ModelParam(2), 3.0);
+  su2double k2 = pow(config->GetSA_ModelParam(7), 2.0);
+  su2double cb1 = config->GetSA_ModelParam(0);
+  su2double cw2 = config->GetSA_ModelParam(5);
+  su2double cw3_6 = pow(config->GetSA_ModelParam(6),6.0);
+  su2double sigma = config->GetSA_ModelParam(8);
+  su2double cb2 = config->GetSA_ModelParam(1);
   su2double cw1 = cb1/k2+(1+cb2)/sigma;
 
   for (iVar = 0; iVar < nVar; iVar++) {
@@ -625,9 +632,11 @@ void CSourceConservative_AdjTurb::ComputeResidual(su2double *val_residual, su2do
 
   unsigned short iDim;
   bool implicit = (config->GetKind_TimeIntScheme_AdjTurb() == EULER_IMPLICIT);
-
-  su2double cb2 = 0.622;
-  su2double sigma = 2./3.;
+  /*--- Define again model parameters ---*/
+  // su2double cb2 = 0.622;
+  // su2double sigma = 2./3.;
+  su2double cb2 = config->GetSA_ModelParam(1);
+  su2double sigma = config->GetSA_ModelParam(8);
   su2double coeff = 2.0*cb2/sigma;
   su2double E_ij, proj_TurbVar_Grad_i, proj_TurbVar_Grad_j;
 
@@ -693,15 +702,25 @@ void CSourcePieceWise_AdjTurb::ComputeResidual(su2double *val_residual, su2doubl
 
     /*--- FIRST PART: -Bs*TurbPsi_i ---*/
     /*--- CLOUSURE CONSTANTS ---*/
-    su2double cv1 = 7.1;
-    su2double cv1_3 = cv1*cv1*cv1;
-    su2double k = 0.41;
+    /*--- Define again model parameters ---*/
+    // su2double cv1 = 7.1;
+    // su2double cv1_3 = cv1*cv1*cv1;
+    // su2double k = 0.41;
+    // su2double k2 = k*k;
+    // su2double cb1 = 0.1355;
+    // su2double cw2 = 0.3;
+    // su2double cw3_6 = pow(2.0,6.0);
+    // su2double sigma = 2./3.;
+    // su2double cb2 = 0.622;
+    su2double cv1 = config->GetSA_ModelParam(2);
+    su2double k = config->GetSA_ModelParam(7);
+    su2double cb1 = config->GetSA_ModelParam(0);
+    su2double cw2 = config->GetSA_ModelParam(5);
+    su2double cw3_6 = pow(config->GetSA_ModelParam(6),6.0);
+    su2double sigma = config->GetSA_ModelParam(8);
+    su2double cb2 = config->GetSA_ModelParam(1);
     su2double k2 = k*k;
-    su2double cb1 = 0.1355;
-    su2double cw2 = 0.3;
-    su2double cw3_6 = pow(2.0,6.0);
-    su2double sigma = 2./3.;
-    su2double cb2 = 0.622;
+    su2double cv1_3 = cv1*cv1*cv1;
     su2double cw1 = cb1/k2+(1+cb2)/sigma;
 
     su2double nu, Ji, fv1, fv2, Shat, dist_0_2, Ji_2, Ji_3, one_o_oneplusJifv1;

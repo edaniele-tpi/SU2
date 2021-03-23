@@ -912,6 +912,8 @@ void CConfig::SetPointersNull(void) {
 
   /*--- SST turbulent model ---*/
   SST_ModelParam      = nullptr;
+  /*--- SA turbulent model ---*/
+  SA_ModelParam      = nullptr;
 
   /*--- Miscellaneous/unsorted ---*/
 
@@ -1092,6 +1094,19 @@ void CConfig::SetConfig_Options() {
   default_sst_model_params[6] = 0.09; //betaStar
   default_sst_model_params[7] = 0.31; //a1
   addDoubleListOption("SST_MODEL_PARAM", nSST_ModelParam, SST_ModelParam);
+  /* !\brief SA_MODEL_PARAM
+   * DESCRIPTION: Parameters of the SA turbulence model (c_b1, c_b2, c_v1, c_t3, c_t4, c_w2, c_w3, kappa, sigma )
+   * Used to test alternative model tuning. \ingroup Config*/
+  default_sa_model_params[0] = 0.1355; //c_b1
+  default_sa_model_params[1] = 0.622; //c_b2
+  default_sa_model_params[2] = 7.1; //c_v1
+  default_sa_model_params[3] = 1.2; //c_t3
+  default_sa_model_params[4] = 0.5; //c_t4
+  default_sa_model_params[5] = 0.3; //c_w2
+  default_sa_model_params[6] = 2.; //c_w3
+  default_sa_model_params[7] = 0.41; //kappa
+  default_sa_model_params[8] = 2./3.; //sigma
+  addDoubleListOption("SA_MODEL_PARAM", nSA_ModelParam, SA_ModelParam);
   /*!\brief KIND_TRANS_MODEL \n DESCRIPTION: Specify transition model OPTIONS: see \link Trans_Model_Map \endlink \n DEFAULT: NO_TRANS_MODEL \ingroup Config*/
   addEnumOption("KIND_TRANS_MODEL", Kind_Trans_Model, Trans_Model_Map, NO_TRANS_MODEL);
 
@@ -3159,9 +3174,10 @@ void CConfig::SetnZone(){
 
 }
 
-void CConfig::SetPostprocessing(unsigned short val_software, unsigned short val_izone, unsigned short val_nDim) {
+void CConfig::SetPostprocessing(unsigned short val_software, 
+  unsigned short val_izone, unsigned short val_nDim) {
 
-  unsigned short iCFL, iMarker, iSST;
+  unsigned short iCFL, iMarker, iSST, iSA;
   bool ideal_gas = ((Kind_FluidModel == STANDARD_AIR) ||
                     (Kind_FluidModel == IDEAL_GAS) ||
                     (Kind_FluidModel == INC_IDEAL_GAS) ||
@@ -4156,6 +4172,19 @@ void CConfig::SetPostprocessing(unsigned short val_software, unsigned short val_
     swap(newParam, SST_ModelParam);
     delete [] newParam;
     nSST_ModelParam = default_sst_model_params.size();
+  }
+
+  /*--- Handle optional SA turbulence model parameter values ---*/
+
+  if (nSA_ModelParam < default_sa_model_params.size()) {
+    auto newParam = new su2double [default_sa_model_params.size()];
+    for (iSA = 0; iSA < default_sa_model_params.size(); ++iSA) {
+      if (iSA < nSA_ModelParam) newParam[iSA] = SA_ModelParam[iSA];
+      else newParam[iSA] = default_sa_model_params[iSA];
+    }
+    swap(newParam, SA_ModelParam);
+    delete [] newParam;
+    nSA_ModelParam = default_sa_model_params.size();
   }
 
   /*--- Evaluate when the Cl should be evaluated ---*/
@@ -7701,6 +7730,7 @@ CConfig::~CConfig(void) {
   delete[] CFL;
   delete[] CFL_AdaptParam;
   delete[] SST_ModelParam;
+  delete[] SA_ModelParam;
 
   /*--- String markers ---*/
 

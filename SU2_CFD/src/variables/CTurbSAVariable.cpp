@@ -29,9 +29,9 @@
 #include "../../include/variables/CTurbSAVariable.hpp"
 
 
-CTurbSAVariable::CTurbSAVariable(su2double val_nu_tilde, su2double val_muT, unsigned long npoint,
-                                 unsigned long ndim, unsigned long nvar, CConfig *config) :
-                 CTurbVariable(npoint, ndim, nvar, config) {
+CTurbSAVariable::CTurbSAVariable(su2double val_nu_tilde, su2double val_muT, 
+  unsigned long npoint, unsigned long ndim, unsigned long nvar, 
+  CConfig *config) : CTurbVariable(npoint, ndim, nvar, config) {
 
   Solution_Old = Solution = val_nu_tilde;
 

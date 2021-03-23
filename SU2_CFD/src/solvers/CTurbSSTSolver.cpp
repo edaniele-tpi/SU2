@@ -33,8 +33,8 @@
 
 CTurbSSTSolver::CTurbSSTSolver(void) : CTurbSolver() { }
 
-CTurbSSTSolver::CTurbSSTSolver(CGeometry *geometry, CConfig *config, unsigned short iMesh)
-    : CTurbSolver(geometry, config) {
+CTurbSSTSolver::CTurbSSTSolver(CGeometry *geometry, CConfig *config, 
+  unsigned short iMesh) : CTurbSolver(geometry, config) {
   unsigned short iVar, nLineLets;
   unsigned long iPoint;
   ifstream restart_file;
@@ -112,10 +112,6 @@ CTurbSSTSolver::CTurbSSTSolver(CGeometry *geometry, CConfig *config, unsigned sh
 
   }
   /*--- Retrieve model parameters if provided by user ---*/
-  //cout << "\nSST Turbulence Model constant from input = " << endl << 
-  //  "\tconstants[0]:\t" << config->GetSST_ModelParam(0) << endl;
-
-  /*--- Initialize value for model constants ---*/
   constants[0] = config->GetSST_ModelParam(0);// 0.85;   //sigma_k1
   constants[1] = config->GetSST_ModelParam(1);//1.0;    //sigma_k2
   constants[2] = config->GetSST_ModelParam(2);//0.5;    //sigma_om1
@@ -126,6 +122,7 @@ CTurbSSTSolver::CTurbSSTSolver(CGeometry *geometry, CConfig *config, unsigned sh
   constants[7] = config->GetSST_ModelParam(7);//0.31;   //a1
   constants[8] = constants[4]/constants[6] - constants[2]*0.41*0.41/sqrt(constants[6]);  //alfa_1
   constants[9] = constants[5]/constants[6] - constants[3]*0.41*0.41/sqrt(constants[6]);  //alfa_2
+  cout.precision(4);
   cout << "\nSST Turbulence Model constant(s):" << endl;
   cout << "\tsigma_k1  :\t" << constants[0] << "\t(" <<
     round(constants[0]/config->GetSST_DefaultModelParam(0)*100) << 

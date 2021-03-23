@@ -33,8 +33,9 @@
 
 CTurbSASolver::CTurbSASolver(void) : CTurbSolver() { }
 
-CTurbSASolver::CTurbSASolver(CGeometry *geometry, CConfig *config, unsigned short iMesh, CFluidModel* FluidModel)
-             : CTurbSolver(geometry, config) {
+CTurbSASolver::CTurbSASolver(CGeometry *geometry, CConfig *config, 
+  unsigned short iMesh, CFluidModel* FluidModel) : CTurbSolver(geometry, 
+  config) {
 
   unsigned short iVar, nLineLets;
   unsigned long iPoint;
@@ -117,6 +118,56 @@ CTurbSASolver::CTurbSASolver(CGeometry *geometry, CConfig *config, unsigned shor
 
   }
 
+  // /*--- Retrieve model parameters if provided by user ---*/
+  constants[0] = config->GetSA_ModelParam(0);//0.1355; //c_b1
+  constants[1] = config->GetSA_ModelParam(1);//0.622; //c_b2
+  constants[2] = config->GetSA_ModelParam(2);//7.1; //c_v1
+  constants[3] = config->GetSA_ModelParam(3);//1.2; //c_t3
+  constants[4] = config->GetSA_ModelParam(4);//0.5; //c_t4
+  constants[5] = config->GetSA_ModelParam(5);//0.3; //c_w2
+  constants[6] = config->GetSA_ModelParam(6);//2.; //c_w3
+  constants[7] = config->GetSA_ModelParam(7);//0.41; //kappa
+  constants[8] = config->GetSA_ModelParam(8);//2./3.; //sigma
+  constants[9] = constants[0]/pow(constants[7],2.)+
+    (1.0+constants[1])/constants[8]; //cb1/k2+(1.0+cb2)/sigma; //cw1
+  cout.precision(4);
+  cout << "\nSA Turbulence Model constant(s):" << endl;
+  cout << "\tc_b1  :\t" << constants[0] << "\t(" <<
+    round(constants[0]/config->GetSA_DefaultModelParam(0)*100) << 
+    "% of default value)" << endl;
+  cout << "\tc_b2  :\t" << constants[1] << "\t(" <<
+    round(constants[1]/config->GetSA_DefaultModelParam(1)*100) << 
+    "% of default value)" << endl;
+  cout << "\tc_v1  :\t" << constants[2] << "\t(" <<
+    round(constants[2]/config->GetSA_DefaultModelParam(2)*100) << 
+    "% of default value)" << endl;
+  cout << "\tc_t3  :\t" << constants[3] << "\t(" <<
+    round(constants[3]/config->GetSA_DefaultModelParam(3)*100) << 
+    "% of default value)" << endl;
+  cout << "\tc_t4  :\t" << constants[4] << "\t(" <<
+    round(constants[4]/config->GetSA_DefaultModelParam(4)*100) << 
+    "% of default value)" << endl;
+  cout << "\tc_w2  :\t" << constants[5] << "\t(" <<
+    round(constants[5]/config->GetSA_DefaultModelParam(5)*100) << 
+    "% of default value)" << endl;
+  cout << "\tc_w3  :\t" << constants[6] << "\t(" <<
+    round(constants[6]/config->GetSA_DefaultModelParam(6)*100) << 
+    "% of default value)" << endl;
+  cout << "\tkappa :\t" << constants[7] << "\t(" <<
+    round(constants[7]/config->GetSA_DefaultModelParam(7)*100) << 
+    "% of default value)" << endl;
+  cout << "\tsigma :\t" << constants[8] << "\t(" <<
+    round(constants[8]/config->GetSA_DefaultModelParam(8)*100) << 
+    "% of default value)" << endl;
+  cout << "\tc_w1  :\t" << constants[9] << "\t(" <<
+    round(constants[9]/(
+      config->GetSA_DefaultModelParam(0)/
+      pow(config->GetSA_DefaultModelParam(7),2.)+
+      (1.0+config->GetSA_DefaultModelParam(1))/
+      config->GetSA_DefaultModelParam(8))*100) << 
+    "% of default value)" << endl;
+  cout << endl;
+
   /*--- Read farfield conditions from config ---*/
 
   Density_Inf   = config->GetDensity_FreeStreamND();
@@ -142,7 +193,8 @@ CTurbSASolver::CTurbSASolver(CGeometry *geometry, CConfig *config, unsigned shor
   nu_tilde_ActDisk  = Factor_nu_ActDisk*Viscosity_Inf/Density_Inf;
 
   /*--- Eddy viscosity at infinity ---*/
-  su2double Ji, Ji_3, fv1, cv1_3 = 7.1*7.1*7.1;
+  //su2double Ji, Ji_3, fv1, cv1_3 = 7.1*7.1*7.1;
+  su2double Ji, Ji_3, fv1, cv1_3 = pow(constants[2],3.0);
   su2double muT_Inf;
   Ji = nu_tilde_Inf/Viscosity_Inf*Density_Inf;
   Ji_3 = Ji*Ji*Ji;
@@ -256,9 +308,12 @@ void CTurbSASolver::Preprocessing(CGeometry *geometry, CSolver **solver_containe
 
 }
 
-void CTurbSASolver::Postprocessing(CGeometry *geometry, CSolver **solver_container, CConfig *config, unsigned short iMesh) {
-
-  const su2double cv1_3 = 7.1*7.1*7.1, cR1 = 0.5, rough_const = 0.03;
+void CTurbSASolver::Postprocessing(CGeometry *geometry, 
+  CSolver **solver_container, CConfig *config, unsigned short iMesh) {
+  /*--- Define again model parameters ---*/
+  // const su2double cv1_3 = 7.1*7.1*7.1, cR1 = 0.5, rough_const = 0.03;
+  const su2double cv1_3 = pow(config->GetSA_ModelParam(2), 3.0), 
+    cR1 = 0.5, rough_const = 0.03;
 
   const bool neg_spalart_allmaras = (config->GetKind_Turb_Model() == SA_NEG);
 
@@ -412,8 +467,9 @@ void CTurbSASolver::Source_Template(CGeometry *geometry, CSolver **solver_contai
                                     CConfig *config, unsigned short iMesh) {
 }
 
-void CTurbSASolver::BC_HeatFlux_Wall(CGeometry *geometry, CSolver **solver_container, CNumerics *conv_numerics,
-                                     CNumerics *visc_numerics, CConfig *config, unsigned short val_marker) {
+void CTurbSASolver::BC_HeatFlux_Wall(CGeometry *geometry, 
+  CSolver **solver_container, CNumerics *conv_numerics,
+  CNumerics *visc_numerics, CConfig *config, unsigned short val_marker) {
 
   /*--- Evaluate nu tilde at the closest point to the surface using the wall functions. ---*/
 
@@ -466,7 +522,9 @@ void CTurbSASolver::BC_HeatFlux_Wall(CGeometry *geometry, CSolver **solver_conta
          su2double Area = GeometryToolbox::Norm(nDim, Normal);
 
          /*--- Get laminar_viscosity and density ---*/
-         su2double sigma = 2.0/3.0;
+         /*--- Define again model parameters ---*/
+         //  su2double sigma = 2.0/3.0;
+         su2double sigma = config->GetSA_ModelParam(8);
          su2double laminar_viscosity = solver_container[FLOW_SOL]->GetNodes()->GetLaminarViscosity(iPoint);
          su2double density = solver_container[FLOW_SOL]->GetNodes()->GetDensity(iPoint);
 
@@ -1587,7 +1645,8 @@ void CTurbSASolver::SetNuTilde_WF(CGeometry *geometry, CSolver **solver_containe
 
   const su2double kappa = 0.4;
   const su2double B = 5.5;
-  const su2double cv1_3 = 7.1*7.1*7.1;
+  // const su2double cv1_3 = 7.1*7.1*7.1;
+  const su2double cv1_3 = pow(config->GetSA_ModelParam(2),3.0);
 
   CVariable* flow_nodes = solver_container[FLOW_SOL]->GetNodes();
 
@@ -1717,7 +1776,8 @@ void CTurbSASolver::SetNuTilde_WF(CGeometry *geometry, CSolver **solver_containe
 
 }
 
-void CTurbSASolver::SetDES_LengthScale(CSolver **solver, CGeometry *geometry, CConfig *config){
+void CTurbSASolver::SetDES_LengthScale(CSolver **solver, CGeometry *geometry, 
+  CConfig *config){
 
   unsigned short kindHybridRANSLES = config->GetKind_HybridRANSLES();
   unsigned long iPoint = 0, jPoint = 0;
@@ -1731,9 +1791,17 @@ void CTurbSASolver::SetDES_LengthScale(CSolver **solver, CGeometry *geometry, CC
   su2double maxDelta = 0.0, deltaAux = 0.0, distDES = 0.0, uijuij = 0.0, k2 = 0.0, r_d = 0.0, f_d = 0.0;
   su2double deltaDDES = 0.0, omega = 0.0, ln_max = 0.0, ln[3] = {0.0}, aux_ln = 0.0, f_kh = 0.0;
 
-  su2double nu_hat, fw_star = 0.424, cv1_3 = pow(7.1, 3.0); k2 = pow(0.41, 2.0);
-  su2double cb1   = 0.1355, ct3 = 1.2, ct4   = 0.5;
-  su2double sigma = 2./3., cb2 = 0.622, f_max=1.0, f_min=0.1, a1=0.15, a2=0.3;
+  /*--- Define again model parameters ---*/
+  // su2double nu_hat, fw_star = 0.424, cv1_3 = pow(7.1, 3.0); k2 = pow(0.41, 2.0);
+  su2double nu_hat, fw_star = 0.424, 
+    cv1_3 = pow(config->GetSA_ModelParam(2), 3.0); 
+  k2 = pow(config->GetSA_ModelParam(7), 2.0);
+  //su2double cb1   = 0.1355, ct3 = 1.2, ct4   = 0.5;
+  su2double cb1   = config->GetSA_ModelParam(0), 
+    ct3 = config->GetSA_ModelParam(3), ct4 = config->GetSA_ModelParam(4);
+  // su2double sigma = 2./3., cb2 = 0.622, f_max=1.0, f_min=0.1, a1=0.15, a2=0.3;
+  su2double sigma = config->GetSA_ModelParam(8), 
+    cb2 = config->GetSA_ModelParam(1), f_max=1.0, f_min=0.1, a1=0.15, a2=0.3;
   su2double cw1 = 0.0, Ji = 0.0, Ji_2 = 0.0, Ji_3 = 0.0, fv1 = 0.0, fv2 = 0.0, ft2 = 0.0, psi_2 = 0.0;
   const su2double *coord_i = nullptr, *coord_j = nullptr, *const *primVarGrad = nullptr, *vorticity = nullptr;
   su2double delta[3] = {0.0}, ratioOmega[3] = {0.0}, vortexTiltingMeasure = 0.0;

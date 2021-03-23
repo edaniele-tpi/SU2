@@ -39,7 +39,9 @@
 
 class CTurbSASolver final : public CTurbSolver {
 private:
-  su2double nu_tilde_Inf, nu_tilde_Engine, nu_tilde_ActDisk;
+  su2double 
+  constants[10] = {0.0}, /*!< \brief Constants for the model. */
+  nu_tilde_Inf, nu_tilde_Engine, nu_tilde_ActDisk;
 
   /*!
    * \brief A virtual member.

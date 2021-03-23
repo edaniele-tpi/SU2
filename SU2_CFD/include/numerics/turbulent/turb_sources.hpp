@@ -177,7 +177,8 @@ public:
    * \param[in] val_nVar - Number of variables of the problem.
    * \param[in] config - Definition of the particular problem.
    */
-  CSourcePieceWise_TurbSA_COMP(unsigned short val_nDim, unsigned short val_nVar, const CConfig* config);
+  CSourcePieceWise_TurbSA_COMP(unsigned short val_nDim, 
+    unsigned short val_nVar, const CConfig* config);
 
   /*!
    * \brief Residual for source term integration.
@@ -211,7 +212,8 @@ public:
    * \param[in] val_nVar - Number of variables of the problem.
    * \param[in] config - Definition of the particular problem.
    */
-  CSourcePieceWise_TurbSA_E(unsigned short val_nDim, unsigned short val_nVar, const CConfig* config);
+  CSourcePieceWise_TurbSA_E(unsigned short val_nDim, unsigned short val_nVar, 
+    const CConfig* config);
 
   /*!
    * \brief Residual for source term integration.
@@ -246,7 +248,8 @@ public:
    * \param[in] val_nVar - Number of variables of the problem.
    * \param[in] config - Definition of the particular problem.
    */
-  CSourcePieceWise_TurbSA_E_COMP(unsigned short val_nDim, unsigned short val_nVar, const CConfig* config);
+  CSourcePieceWise_TurbSA_E_COMP(unsigned short val_nDim, 
+    unsigned short val_nVar, const CConfig* config);
 
   /*!
    * \brief Residual for source term integration.
@@ -277,7 +280,8 @@ public:
    * \param[in] val_nVar - Number of variables of the problem.
    * \param[in] config - Definition of the particular problem.
    */
-  CSourcePieceWise_TurbSA_Neg(unsigned short val_nDim, unsigned short val_nVar, const CConfig* config);
+  CSourcePieceWise_TurbSA_Neg(unsigned short val_nDim, unsigned short val_nVar, 
+    const CConfig* config);
 
   /*!
    * \brief Residual for source term integration.
