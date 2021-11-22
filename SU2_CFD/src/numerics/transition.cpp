@@ -117,9 +117,7 @@ void CUpwSca_TransLM::ComputeResidual(su2double *val_residual, su2double **val_J
 
 }
 
-CAvgGrad_TransLM::CAvgGrad_TransLM(unsigned short val_nDim, 
-  unsigned short val_nVar, CConfig *config) : CNumerics(val_nDim, val_nVar, 
-  config) {
+CAvgGrad_TransLM::CAvgGrad_TransLM(unsigned short val_nDim, unsigned short val_nVar, CConfig *config) : CNumerics(val_nDim, val_nVar, config) {
   unsigned short iVar;
 
   implicit = (config->GetKind_TimeIntScheme_Turb() == EULER_IMPLICIT);
@@ -127,9 +125,8 @@ CAvgGrad_TransLM::CAvgGrad_TransLM(unsigned short val_nDim,
 
   Gamma = config->GetGamma();
   Gamma_Minus_One = Gamma - 1.0;
-  /*--- Define again model parameters ---*/
-  // sigma = 2./3.;
-  sigma = config->GetSA_ModelParam(8);
+
+  sigma = 2./3.;
 
   Edge_Vector = new su2double [nDim];
   Proj_Mean_GradTransVar_Kappa = new su2double [nVar];
@@ -231,9 +228,8 @@ void CAvgGrad_TransLM::ComputeResidual(su2double *val_residual, su2double **Jaco
  //
 }
 
-CAvgGradCorrected_TransLM::CAvgGradCorrected_TransLM(unsigned short val_nDim, 
-  unsigned short val_nVar, CConfig *config) : CNumerics(val_nDim, val_nVar, 
-  config) {
+CAvgGradCorrected_TransLM::CAvgGradCorrected_TransLM(unsigned short val_nDim, unsigned short val_nVar,
+                                                     CConfig *config) : CNumerics(val_nDim, val_nVar, config) {
 
   unsigned short iVar;
 
@@ -242,9 +238,8 @@ CAvgGradCorrected_TransLM::CAvgGradCorrected_TransLM(unsigned short val_nDim,
 
   Gamma = config->GetGamma();
   Gamma_Minus_One = Gamma - 1.0;
-  /*--- Define again model parameters ---*/
-  // sigma = 2./3.;
-  sigma = config->GetSA_ModelParam(8);
+
+  sigma = 2./3.;
 
   Edge_Vector = new su2double [nDim];
   Proj_Mean_GradTurbVar_Kappa = new su2double [nVar];
@@ -313,29 +308,20 @@ void CAvgGradCorrected_TransLM::ComputeResidual(su2double *val_residual, su2doub
   //  }
 }
 
-CSourcePieceWise_TransLM::CSourcePieceWise_TransLM(unsigned short val_nDim, 
-  unsigned short val_nVar, CConfig *config) : CNumerics(val_nDim, val_nVar, 
-  config) {
+CSourcePieceWise_TransLM::CSourcePieceWise_TransLM(unsigned short val_nDim, unsigned short val_nVar,
+                                                   CConfig *config) : CNumerics(val_nDim, val_nVar, config) {
 
   Gamma = config->GetGamma();
   Gamma_Minus_One = Gamma - 1.0;
 
   /*--- Spalart-Allmaras closure constants ---*/
-  /*--- Define again model parameters ---*/
-  // cv1_3 = pow(7.1,3.0);
-  // k2 = pow(0.41,2.0);
-  // cb1 = 0.1355;
-  // cw2 = 0.3;
-  // cw3_6 = pow(2.0,6.0);
-  // sigma = 2./3.;
-  // cb2 = 0.622;
-  cv1_3 = pow(config->GetSA_ModelParam(2), 3.0);
-  k2 = pow(config->GetSA_ModelParam(7), 2.0);
-  cb1 = config->GetSA_ModelParam(0);
-  cw2 = config->GetSA_ModelParam(5);
-  cw3_6 = pow(config->GetSA_ModelParam(6), 6.0);
-  sigma = config->GetSA_ModelParam(8);
-  cb2 = config->GetSA_ModelParam(1);
+  cv1_3 = pow(7.1,3.0);
+  k2 = pow(0.41,2.0);
+  cb1 = 0.1355;
+  cw2 = 0.3;
+  cw3_6 = pow(2.0,6.0);
+  sigma = 2./3.;
+  cb2 = 0.622;
   cw1 = cb1/k2+(1+cb2)/sigma;
 
   /*-- Gamma-theta closure constants --*/

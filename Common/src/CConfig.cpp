@@ -910,11 +910,6 @@ void CConfig::SetPointersNull(void) {
   Surface_IDC_Mach        = nullptr;    Surface_IDR            = nullptr;    ActDisk_Mach             = nullptr;
   ActDisk_Force           = nullptr;    ActDisk_BCThrust       = nullptr;    ActDisk_BCThrust_Old     = nullptr;
 
-  /*--- SST turbulent model ---*/
-  SST_ModelParam      = nullptr;
-  /*--- SA turbulent model ---*/
-  SA_ModelParam      = nullptr;
-
   /*--- Miscellaneous/unsorted ---*/
 
   Aeroelastic_plunge  = nullptr;
@@ -3218,7 +3213,7 @@ void CConfig::SetnZone(){
 
 void CConfig::SetPostprocessing(SU2_COMPONENT val_software, unsigned short val_izone, unsigned short val_nDim) {
 
-  unsigned short iCFL, iMarker, iSST, iSA;
+  unsigned short iCFL, iMarker;
   bool ideal_gas = ((Kind_FluidModel == STANDARD_AIR) ||
                     (Kind_FluidModel == IDEAL_GAS) ||
                     (Kind_FluidModel == INC_IDEAL_GAS) ||
@@ -4230,32 +4225,6 @@ void CConfig::SetPostprocessing(SU2_COMPONENT val_software, unsigned short val_i
     delete [] newParam;
     nCFL_AdaptParam = default_cfl_adapt.size();
   }
-
-  /*--- Handle optional SST turbulence model parameter values ---*/
-
-  // if (nSST_ModelParam < default_sst_model_params.size()) {
-  //   auto newParam = new su2double [default_sst_model_params.size()];
-  //   for (iSST = 0; iSST < default_sst_model_params.size(); ++iSST) {
-  //     if (iSST < nSST_ModelParam) newParam[iSST] = SST_ModelParam[iSST];
-  //     else newParam[iSST] = default_sst_model_params[iSST];
-  //   }
-  //   swap(newParam, SST_ModelParam);
-  //   delete [] newParam;
-  //   nSST_ModelParam = default_sst_model_params.size();
-  // }
-
-  /*--- Handle optional SA turbulence model parameter values ---*/
-
-  // if (nSA_ModelParam < default_sa_model_params.size()) {
-  //   auto newParam = new su2double [default_sa_model_params.size()];
-  //   for (iSA = 0; iSA < default_sa_model_params.size(); ++iSA) {
-  //     if (iSA < nSA_ModelParam) newParam[iSA] = SA_ModelParam[iSA];
-  //     else newParam[iSA] = default_sa_model_params[iSA];
-  //   }
-  //   swap(newParam, SA_ModelParam);
-  //   delete [] newParam;
-  //   nSA_ModelParam = default_sa_model_params.size();
-  // }
 
   /*--- Evaluate when the Cl should be evaluated ---*/
 
@@ -7836,11 +7805,9 @@ CConfig::~CConfig(void) {
   delete[] Periodic_Translate;
 
   delete[] MG_CorrecSmooth;
-  delete[] PlaneTag;
-  delete[] CFL;
-  delete[] CFL_AdaptParam;
-  delete[] SST_ModelParam;
-  delete[] SA_ModelParam;
+         delete[] PlaneTag;
+              delete[] CFL;
+   delete[] CFL_AdaptParam;
 
   /*--- String markers ---*/
 

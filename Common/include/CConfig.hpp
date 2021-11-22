@@ -732,8 +732,6 @@ private:
   *RefOriginMoment_Y,    /*!< \brief Y Origin for moment computation. */
   *RefOriginMoment_Z,    /*!< \brief Z Origin for moment computation. */
   *CFL_AdaptParam,       /*!< \brief Information about the CFL ramp. */
-  *SST_ModelParam,       /*!< \brief Information about the SST turbulent model parameters. */
-  *SA_ModelParam,       /*!< \brief Information about the SA turbulent model parameters. */
   *RelaxFactor_Giles,    /*!< \brief Information about the under relaxation factor for Giles BC. */
   *CFL,                  /*!< \brief CFL number. */
   DomainVolume;          /*!< \brief Volume of the computational grid. */
@@ -4186,40 +4184,6 @@ public:
    * \return Kind of the turbulence model.
    */
   TURB_MODEL GetKind_Turb_Model(void) const { return Kind_Turb_Model; }
-
-  /*!
-   * \brief Get the value(s) of the SST Turbulence Model parameters.
-   * \param[in] val_index - Index corresponding to SST Turbulence Model parameter.
-   * \return Value of SST Turbulence Model parameter.
-   */
-  su2double GetSST_ModelParam(unsigned short val_index) const { 
-    return SST_ModelParam[val_index]; 
-  }
-  /*!
-   * \brief Get the default value(s) of the SST Turbulence Model parameters.
-   * \param[in] val_index - Index corresponding to SST Turbulence Model parameter.
-   * \return Default value of SST Turbulence Model parameter.
-   */
-  // su2double GetSST_DefaultModelParam(unsigned short val_index) const { 
-  //   return default_sst_model_params[val_index]; 
-  // }
-
-  /*!
-   * \brief Get the value(s) of the SA Turbulence Model parameters.
-   * \param[in] val_index - Index corresponding to SA Turbulence Model parameter.
-   * \return Value of SA Turbulence Model parameter.
-   */
-  su2double GetSA_ModelParam(unsigned short val_index) const { 
-    return SA_ModelParam[val_index]; 
-  }
-  /*!
-   * \brief Get the default value(s) of the SA Turbulence Model parameters.
-   * \param[in] val_index - Index corresponding to SA Turbulence Model parameter.
-   * \return Default value of SA Turbulence Model parameter.
-   */
-  // su2double GetSA_DefaultModelParam(unsigned short val_index) const { 
-  //   return default_sa_model_params[val_index]; 
-  // }
 
   /*!
    * \brief Get the kind of the transition model.

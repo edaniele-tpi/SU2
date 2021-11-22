@@ -29,31 +29,23 @@
 #include "../../../include/numerics/turbulent/turb_sources.hpp"
 
 CSourceBase_TurbSA::CSourceBase_TurbSA(unsigned short val_nDim,
-  unsigned short val_nVar, const CConfig* config) :
+                                       unsigned short val_nVar,
+                                       const CConfig* config) :
   CNumerics(val_nDim, val_nVar, config),
   incompressible(config->GetKind_Regime() == ENUM_REGIME::INCOMPRESSIBLE),
   rotating_frame(config->GetRotating_Frame())
 {
   /*--- Spalart-Allmaras closure constants ---*/
-  /*--- Define again model parameters ---*/
-  // cv1_3 = pow(7.1, 3.0);
-  // k2    = pow(0.41, 2.0);
-  // cb1   = 0.1355;
-  // cw2   = 0.3;
-  // ct3   = 1.2;
-  // ct4   = 0.5;
-  // cw3_6 = pow(2.0, 6.0);
-  // sigma = 2./3.;
-  // cb2   = 0.622;
-  cv1_3 = pow(config->GetSA_ModelParam(2), 3.0);
-  k2    = pow(config->GetSA_ModelParam(7), 2.0);
-  cb1   = config->GetSA_ModelParam(0);
-  cw2   = config->GetSA_ModelParam(5);
-  ct3   = config->GetSA_ModelParam(3);
-  ct4   = config->GetSA_ModelParam(4);
-  cw3_6 = pow(config->GetSA_ModelParam(6), 6.0);
-  sigma = config->GetSA_ModelParam(8);
-  cb2   = config->GetSA_ModelParam(1);
+
+  cv1_3 = pow(7.1, 3.0);
+  k2    = pow(0.41, 2.0);
+  cb1   = 0.1355;
+  cw2   = 0.3;
+  ct3   = 1.2;
+  ct4   = 0.5;
+  cw3_6 = pow(2.0, 6.0);
+  sigma = 2./3.;
+  cb2   = 0.622;
   cb2_sigma = cb2/sigma;
   cw1 = cb1/k2+(1.0+cb2)/sigma;
   cr1 = 0.5;
@@ -223,12 +215,12 @@ CNumerics::ResidualType<> CSourcePieceWise_TurbSA::ComputeResidual(const CConfig
 
 }
 
-CSourcePieceWise_TurbSA_COMP::CSourcePieceWise_TurbSA_COMP(
-  unsigned short val_nDim, unsigned short val_nVar, const CConfig* config) :
-  CSourceBase_TurbSA(val_nDim, val_nVar, config), c5(3.5) { }
+CSourcePieceWise_TurbSA_COMP::CSourcePieceWise_TurbSA_COMP(unsigned short val_nDim,
+                                                           unsigned short val_nVar,
+                                                           const CConfig* config) :
+                              CSourceBase_TurbSA(val_nDim, val_nVar, config), c5(3.5) { }
 
-CNumerics::ResidualType<> CSourcePieceWise_TurbSA_COMP::ComputeResidual(
-  const CConfig* config) {
+CNumerics::ResidualType<> CSourcePieceWise_TurbSA_COMP::ComputeResidual(const CConfig* config) {
 
   //  AD::StartPreacc();
   //  AD::SetPreaccIn(V_i, nDim+6);
@@ -344,11 +336,11 @@ CNumerics::ResidualType<> CSourcePieceWise_TurbSA_COMP::ComputeResidual(
 }
 
 CSourcePieceWise_TurbSA_E::CSourcePieceWise_TurbSA_E(unsigned short val_nDim,
-  unsigned short val_nVar, const CConfig* config) :
-  CSourceBase_TurbSA(val_nDim, val_nVar, config) { }
+                                                     unsigned short val_nVar,
+                                                     const CConfig* config) :
+                           CSourceBase_TurbSA(val_nDim, val_nVar, config) { }
 
-CNumerics::ResidualType<> CSourcePieceWise_TurbSA_E::ComputeResidual(
-  const CConfig* config) {
+CNumerics::ResidualType<> CSourcePieceWise_TurbSA_E::ComputeResidual(const CConfig* config) {
 
   unsigned short iDim, jDim;
 
@@ -470,12 +462,12 @@ CNumerics::ResidualType<> CSourcePieceWise_TurbSA_E::ComputeResidual(
 
 }
 
-CSourcePieceWise_TurbSA_E_COMP::CSourcePieceWise_TurbSA_E_COMP(
-  unsigned short val_nDim, unsigned short val_nVar, const CConfig* config) :
-  CSourceBase_TurbSA(val_nDim, val_nVar, config) { }
+CSourcePieceWise_TurbSA_E_COMP::CSourcePieceWise_TurbSA_E_COMP(unsigned short val_nDim,
+                                                               unsigned short val_nVar,
+                                                               const CConfig* config) :
+                                CSourceBase_TurbSA(val_nDim, val_nVar, config) { }
 
-CNumerics::ResidualType<> CSourcePieceWise_TurbSA_E_COMP::ComputeResidual(
-  const CConfig* config) {
+CNumerics::ResidualType<> CSourcePieceWise_TurbSA_E_COMP::ComputeResidual(const CConfig* config) {
 
   unsigned short iDim;
 
@@ -610,12 +602,12 @@ CNumerics::ResidualType<> CSourcePieceWise_TurbSA_E_COMP::ComputeResidual(
 
 }
 
-CSourcePieceWise_TurbSA_Neg::CSourcePieceWise_TurbSA_Neg(
-  unsigned short val_nDim, unsigned short val_nVar, const CConfig* config) :
-  CSourceBase_TurbSA(val_nDim, val_nVar, config) { }
+CSourcePieceWise_TurbSA_Neg::CSourcePieceWise_TurbSA_Neg(unsigned short val_nDim,
+                                                         unsigned short val_nVar,
+                                                         const CConfig* config) :
+                             CSourceBase_TurbSA(val_nDim, val_nVar, config) { }
 
-CNumerics::ResidualType<> CSourcePieceWise_TurbSA_Neg::ComputeResidual(
-  const CConfig* config) {
+CNumerics::ResidualType<> CSourcePieceWise_TurbSA_Neg::ComputeResidual(const CConfig* config) {
 
   unsigned short iDim;
 

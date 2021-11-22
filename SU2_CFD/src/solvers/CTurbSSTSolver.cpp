@@ -95,46 +95,18 @@ CTurbSSTSolver::CTurbSSTSolver(CGeometry *geometry, CConfig *config, unsigned sh
     }
 
   }
-  /*--- Retrieve model parameters if provided by user ---*/
-  constants[0] = config->GetSST_ModelParam(0);// 0.85;   //sigma_k1
-  constants[1] = config->GetSST_ModelParam(1);//1.0;    //sigma_k2
-  constants[2] = config->GetSST_ModelParam(2);//0.5;    //sigma_om1
-  constants[3] = config->GetSST_ModelParam(3);//0.856;  //sigma_om2
-  constants[4] = config->GetSST_ModelParam(4);//0.075;  //beta_1
-  constants[5] = config->GetSST_ModelParam(5);//0.0828; //beta_2
-  constants[6] = config->GetSST_ModelParam(6);//0.09;   //betaStar
-  constants[7] = config->GetSST_ModelParam(7);//0.31;   //a1
+
+  /*--- Initialize value for model constants ---*/
+  constants[0] = 0.85;   //sigma_k1
+  constants[1] = 1.0;    //sigma_k2
+  constants[2] = 0.5;    //sigma_om1
+  constants[3] = 0.856;  //sigma_om2
+  constants[4] = 0.075;  //beta_1
+  constants[5] = 0.0828; //beta_2
+  constants[6] = 0.09;   //betaStar
+  constants[7] = 0.31;   //a1
   constants[8] = constants[4]/constants[6] - constants[2]*0.41*0.41/sqrt(constants[6]);  //alfa_1
   constants[9] = constants[5]/constants[6] - constants[3]*0.41*0.41/sqrt(constants[6]);  //alfa_2
-  // cout.precision(4);
-  // cout << "\nSST Turbulence Model constant(s):" << endl;
-  // cout << "\tsigma_k1  :\t" << constants[0] << "\t(" <<
-  //   round(constants[0]/config->GetSST_DefaultModelParam(0)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\tsigma_k2  :\t" << constants[1] << "\t(" <<
-  //   round(constants[1]/config->GetSST_DefaultModelParam(1)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\tsigma_om1 :\t" << constants[2] << "\t(" <<
-  //   round(constants[2]/config->GetSST_DefaultModelParam(2)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\tsigma_om2 :\t" << constants[3] << "\t(" <<
-  //   round(constants[3]/config->GetSST_DefaultModelParam(3)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\tbeta_1    :\t" << constants[4] << "\t(" <<
-  //   round(constants[4]/config->GetSST_DefaultModelParam(4)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\tbeta_2    :\t" << constants[5] << "\t(" <<
-  //   round(constants[5]/config->GetSST_DefaultModelParam(5)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\tbetaStar  :\t" << constants[6] << "\t(" <<
-  //   round(constants[6]/config->GetSST_DefaultModelParam(6)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\ta1        :\t" << constants[7] << "\t(" <<
-  //   round(constants[7]/config->GetSST_DefaultModelParam(7)*100) << 
-  //   "% of default value)" << endl;
-  // cout << "\talfa_1    :\t" << constants[8] << endl;
-  // cout << "\talfa_2    :\t" << constants[9] << endl;
-  // cout << endl;
 
   /*--- Initialize lower and upper limits---*/
   lowerlimit[0] = 1.0e-10;
