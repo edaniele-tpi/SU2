@@ -3,7 +3,11 @@
 # \file Makefile.am
 # \brief Makefile for external libraries
 # \author B. Kirk, T. Economon, F. Palacios
+<<<<<<< HEAD
 # \version 6.1.0 "Falcon"
+=======
+# \version 7.2.1 "Blackbird"
+>>>>>>> upstream/master
 #
 # The current SU2 release has been coordinated by the
 # SU2 International Developers Society <www.su2devsociety.org>

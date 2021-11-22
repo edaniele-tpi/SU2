@@ -3,14 +3,14 @@
  * \brief Delarations of numerics classes for integration of source
  *        terms in turbulence problems.
  * \author F. Palacios, T. Economon
- * \version 7.1.1 "Blackbird"
+ * \version 7.2.1 "Blackbird"
  *
  * SU2 Project Website: https://su2code.github.io
  *
  * The SU2 Project is maintained by the SU2 Foundation
  * (http://su2foundation.org)
  *
- * Copyright 2012-2020, SU2 Contributors (cf. AUTHORS.md)
+ * Copyright 2012-2021, SU2 Contributors (cf. AUTHORS.md)
  *
  * SU2 is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@
 
 #pragma once
 
-#include "../CNumerics.hpp"
+#include "../scalar/scalar_sources.hpp"
 
 /*!
  * \class CSourcePieceWise_TurbSA
@@ -134,7 +134,8 @@ private:
   su2double dr, dg, dfw;
   unsigned short iDim;
   bool transition;
-
+  bool axisymmetric;
+  
 public:
   /*!
    * \brief Constructor of the class.
@@ -158,7 +159,7 @@ public:
  * \brief Class for integrating the source terms of the Spalart-Allmaras CC modification turbulence model equation.
  * \ingroup SourceDiscr
  * \author E.Molina, A. Bueno.
- * \version 7.1.1 "Blackbird"
+ * \version 7.2.1 "Blackbird"
  */
 class CSourcePieceWise_TurbSA_COMP final : public CSourceBase_TurbSA {
 private:
@@ -194,7 +195,7 @@ public:
  * \brief Class for integrating the source terms of the Spalart-Allmaras Edwards modification turbulence model equation.
  * \ingroup SourceDiscr
  * \author E.Molina, A. Bueno.
- * \version 7.1.1 "Blackbird"
+ * \version 7.2.1 "Blackbird"
  */
 class CSourcePieceWise_TurbSA_E final : public CSourceBase_TurbSA {
 private:
@@ -228,7 +229,7 @@ public:
  * \brief Class for integrating the source terms of the Spalart-Allmaras Edwards modification with CC turbulence model equation.
  * \ingroup SourceDiscr
  * \author E.Molina, A. Bueno.
- * \version 7.1.1 "Blackbird"
+ * \version 7.2.1 "Blackbird"
  */
 class CSourcePieceWise_TurbSA_E_COMP : public CSourceBase_TurbSA {
 private:
@@ -333,7 +334,7 @@ private:
    * \param[in] turb_ke: turbulent kinetic energy of the node
    */
   void SetPerturbedStrainMag(su2double turb_ke);
-  
+
   /*!
    * \brief Add contribution due to axisymmetric formulation to 2D residual
    */
@@ -349,8 +350,8 @@ private:
 
     yinv = 1.0/Coord_i[1];
     rhov = Density_i*V_i[2];
-    k = TurbVar_i[0];
-    w = TurbVar_i[1];
+    k = ScalarVar_i[0];
+    w = ScalarVar_i[1];
 
     /*--- Compute blended constants ---*/
     sigma_k_i = F1_i*sigma_k_1+(1.0-F1_i)*sigma_k_2;
@@ -361,8 +362,8 @@ private:
     pw_axi = alfa_blended*zeta/k*pk_axi;
 
     /*--- Convection-Diffusion ---*/
-    cdk_axi = rhov*k-(Laminar_Viscosity_i+sigma_k_i*Eddy_Viscosity_i)*TurbVar_Grad_i[0][1];
-    cdw_axi = rhov*w-(Laminar_Viscosity_i+sigma_w_i*Eddy_Viscosity_i)*TurbVar_Grad_i[1][1];
+    cdk_axi = rhov*k-(Laminar_Viscosity_i+sigma_k_i*Eddy_Viscosity_i)*ScalarVar_Grad_i[0][1];
+    cdw_axi = rhov*w-(Laminar_Viscosity_i+sigma_w_i*Eddy_Viscosity_i)*ScalarVar_Grad_i[1][1];
 
     /*--- Add terms to the residuals ---*/
     Residual[0] += yinv*Volume*(pk_axi-cdk_axi);
